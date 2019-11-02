@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Navotas Search",
+  "name": "Navotas Search",
+  "version": "1.0.0",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,5 +22,11 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "size": {
+    "width": 4,
+    "height": 2
+  },
+  "mapping": [],
+  "id": "ac7b176b-28f0-43a8-87d7-e02b5829956d"
 }
