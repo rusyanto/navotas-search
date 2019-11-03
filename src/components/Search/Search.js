@@ -38,28 +38,20 @@ function Search() {
     field: '',
     text: ''
   });
-  const [results, setResults] = useState([]);
+  const [resultInd, setResultInd] = useState(0);
+  const [resultData, setResultData] = useState([]);
+  const [resultHtml, setResultHtml] = useState([]);
   const [disableBtn, setDisableBtn] = useState(true);
   const [callingApi, setCallingApi] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
-  const [dialogValue, setDialogValue] = useState({});
 
   const inputLabel = React.useRef(null);
 
-  const handleChange = name => event => {
-    setDisableBtn(true);
-    setValues({ ...values, [name]: event.target.value });
-  };
-
-  const handleClickPolice = event => {
-    // setDialogValue(name);
-    console.log(event.currentTarget.value);
-    setOpenDialog(true);
-  };
-
-  const handleClosePolice = () => {
-    setOpenDialog(false);
-  };
+  useEffect(() => {
+    if (values.field && values.text.length >= 4) {
+      setDisableBtn(false);
+    }
+  }, [values]);
 
   const clkSearch = () => {
     setDisableBtn(true);
@@ -123,25 +115,41 @@ function Search() {
               </Typography>
             </Grid>
             <Grid item xs={12} style={{ margin: '6px 0 28px' }}>
-              {/* <Button variant="outlined" size="small" color="secondary" startIcon={<FolderSpecialIcon />} onClick={handleClickPolice} value={resItem}> */}
-              <Button variant="outlined" size="small" color="secondary" startIcon={<FolderSpecialIcon />}>
+              <Button
+                variant="outlined"
+                size="small"
+                color="secondary"
+                disabled={!resItem.polDate}
+                startIcon={<FolderSpecialIcon />}
+                onClick={handleClickPolice}
+                value={index}
+              >
                 Police Record
               </Button>
             </Grid>
           </React.Fragment>
         );
       }
-      setResults(resItems);
+      setResultHtml(resItems);
+      setResultData(data);
       setDisableBtn(false);
       setCallingApi(false);
     });
   }
 
-  useEffect(() => {
-    if (values.field && values.text.length >= 4) {
-      setDisableBtn(false);
-    }
-  }, [values.field, values.text.length]);
+  const handleChange = name => event => {
+    setDisableBtn(true);
+    setValues({ ...values, [name]: event.target.value });
+  };
+
+  const handleClickPolice = event => {
+    setResultInd(event.currentTarget.value);
+    setOpenDialog(true);
+  };
+
+  const handleClosePolice = () => {
+    setOpenDialog(false);
+  };
 
   return (
     <Grid container style={{ marginTop: 10 }}>
@@ -198,8 +206,8 @@ function Search() {
             <CircularProgress />
           </Grid>
         ) : (
-          results.length > 0 ? (
-            results
+          resultHtml.length > 0 ? (
+            resultHtml
           ) : (
             <Grid item xs={12} className={classes.noResult}>
               No Result<br />
@@ -208,7 +216,7 @@ function Search() {
           )
         )}
       </Grid>
-      <PoliceDialog selectedValue={dialogValue} open={openDialog} onClose={handleClosePolice} />
+      <PoliceDialog selectedValue={resultData[resultInd] || {}} open={openDialog} onClose={handleClosePolice} />
     </Grid>
   );
 }
