@@ -27,6 +27,13 @@
     "width": 4,
     "height": 2
   },
-  "mapping": [],
-  "id": "ac7b176b-28f0-43a8-87d7-e02b5829956d"
+  "mapping": [
+    {
+      "alias": "taxPolice",
+      "dataSetId": "c3c1db08-018f-4904-9b37-7ac8cbd6e02d",
+      "fields": []
+    }
+  ],
+  "id": "ac7b176b-28f0-43a8-87d7-e02b5829956d",
+  "proxyId": "3e151a4b-8a4f-444e-a2a0-0c79509aca94"
 }
